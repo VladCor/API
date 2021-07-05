@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang='en'>
+
+<head>
+    <meta charset="utf-8" />
+    <title>Flight conditions</title>
+</head>
+
+<body>
+    <h1>Adaugare conditie</h1>
+    <table border="1">
+        <tr>
+            <th>Camp</th>
+            <th>Conditie</th>
+            <th>Valoare</th>
+            <th>Actiune</th>
+        </tr>
+
+        <form action="{{ url_for('add_condition') }}" method="post">
+            <tr>
+                <td>
+                    <select name='field'>
+                        <option value='temp'>Temperatura</option>
+                        <option value='speed'>Viteza vant</option>
+                        <option value='visibility'>Vizibilitate</option>
+                        <option value='weather'>Vreme</option>
+                    </select>
+                </td>
+                <td>
+                    <select name='condition'>
+                        <option value='gr'>mai mare ca</option>
+                        <option value='eq'>egal</option>
+                        <option value='sm'>mai mic ca</option>
+                    </select>
+                </td>
+                <td>
+                    <input type='text' name='value' />
+                </td>
+                <td>
+                    <input type="submit" value="Adauga">
+                </td>
+            </tr>
+        </form>
+    </table>
+    <h1>Conditii actuale</h1>
+    <table border="1">
+        <tr>
+            <th>Camp</th>
+            <th>Conditie</th>
+            <th>Valoare</th>
+            <th>Actiune</th>
+            <th>Actiune</th>
+        </tr>
+
+
+        {%for i in range(0, len)%}
+
+        <tr>
+            <td>{{dbConditions[i][1]}}</td>
+            <td>{{dbConditions[i][2]}}</td>
+
+            <form action="{{ url_for('edit_condition', id=dbConditions[i][0]) }}" method="post">
+                <td><input type="text" value={{dbConditions[i][3]}} name='newValue' /></td>
+                <td>
+                    <input type="submit" value="Editeaza">
+                </td>
+            </form>
+            <td>
+                <form action="{{ url_for('delete_condition', id=dbConditions[i][0]) }}" method="post">
+                    <input type="submit" value="Sterge">
+                </form>
+            </td>
+        </tr>
+
+        {%endfor%}
+
+    </table>
+    <br>
+    <form action="{{ url_for('delete_condition', id='all') }}" method="post">
+        <input type="submit" value="Goleste conditiile">
+    </form>
+</body>
+
+</html>
