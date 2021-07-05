@@ -1,1 +1,40 @@
+<!DOCTYPE html>
+<html lang='en'>
 
+<head>
+    <meta charset="utf-8" />
+    <title>Flight conditions</title>
+</head>
+
+<body>
+
+    <table border="1">
+        <tr>
+            <th>Numar</th>
+            <th>Model</th>
+            <th>Companie</th>
+            <th>Decolare</th>
+            <th>Temperatura</th>
+            <th>Viteza vantului</th>
+            <th>Vizibilitate</th>
+            <th>Descriere</th>
+            <th>Recomandare</th>
+        </tr>
+        {%for i in range(0, len)%}
+        <tr>
+            <td>{{departures[i]["number"]}}</td>
+            <td>{{departures[i]["aircraft"]["model"]}}</td>
+            <td>{{departures[i]["airline"]["name"]}}</td>
+            <td>{{departures[i]["movement"]["scheduledTimeLocal"]}}</td>
+            <td>{{departures[i]["weatherData"]["temp"]}} °C</td>
+            <td>{{departures[i]["weatherData"]["wind_speed"]}} m/s</td>
+            <td>{{departures[i]["weatherData"]["visibility"]}} metri</td>
+            <td>{{departures[i]["weatherData"]["weather"][0]["description"]}}</td>
+            <td>{{departures[i]["recommendation"]}}</td>
+        </tr>
+        {%endfor%}
+    </table>
+
+</body>
+
+</html>
